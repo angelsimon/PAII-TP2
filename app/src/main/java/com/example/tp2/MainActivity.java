@@ -1,5 +1,6 @@
 package com.example.tp2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_agregar) {
-            Toast.makeText(this, "Agregar contactos", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Agregar contactos", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(this, AgregarContactoUnoActivity.class);
+            startActivity(i);
             return true;
         }
         if (id == R.id.action_listar) {
