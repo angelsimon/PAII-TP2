@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ejercicio controles</string>
+    <string name="app_name">EjercicioControles - Grupo 6</string>
     <string name="action_agregar">Agregar contacto</string>
     <string name="action_listar">Listado de contactos</string>
 </resources>

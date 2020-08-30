@@ -19,5 +19,6 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0); // same for minutes and seconds
         datePicker.setMaxDate(today.getTimeInMillis());
+
     }
 }
