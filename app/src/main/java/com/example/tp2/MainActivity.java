@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_listar) {
-            Toast.makeText(this, "Listar contactos", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(this, ListarContactoUnoActivity.class);
+            startActivity(i);
             return true;
         }
 
