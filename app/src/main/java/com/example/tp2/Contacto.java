@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Contacto implements Serializable {
 
+
+
     private Long id;
     private String nombre;
     private String apellido;
@@ -35,6 +37,7 @@ public class Contacto implements Serializable {
         this.intereses = intereses;
         this.recibeInfo = recibeInfo;
     }
+
 
     public String getNombre() {
         return nombre;
@@ -100,6 +103,14 @@ public class Contacto implements Serializable {
         this.fechanac = fechanac;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNivelEstudio() {
         return nivelEstudio;
     }
@@ -136,9 +147,9 @@ public class Contacto implements Serializable {
                 ", tipoEmail='" + tipoEmail + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", fechanac='" + fechanac + '\'' +
-                ", nivelEstudio='" + nivelEstudio + '\'' +
+                /*", nivelEstudio='" + nivelEstudio + '\'' +
                 ", intereses='" + intereses + '\'' +
-                ", recibeInfo=" + recibeInfo.toString() +
+                ", recibeInfo=" + recibeInfo.toString() +*/
                 '}';
     }
 
