@@ -66,12 +66,13 @@ public class ListarContactoUnoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listar_contacto_uno);
         try {
             bindForm();
-            bindData(ContactoHelper.getByID((long) 1, this)); // TODO: Recibir el ID del Activity VerTodos
+            ContactoHelper helper = new ContactoHelper(this);
+            bindData(helper.getByID((long) 3)); // TODO: Recibir el ID del Activity VerTodos
         } catch (ParseException e) {
 
         }
         catch (Exception e){
-            Toast.makeText(this, "Hubo un error al abrir la pantalla", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

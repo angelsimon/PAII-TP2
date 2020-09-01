@@ -32,14 +32,20 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
 
     }
     private void dummyData(){
-        txtNombre.setText("Laura");
-        txtApellido.setText("Velez");
-        txtTelefono.setText("123456");
-        cbxTipoTelefono.setSelection(3);
-        txtEmail.setText("lvelez@gmail.com");
-        cbxTipoEmail.setSelection(2);
-        txtDireccion.setText("Maipu 1111");
-        txtNacimiento.updateDate(1986, 9, 2);
+        try {
+            txtNombre.setText("Laura");
+            txtApellido.setText("Velez");
+            txtTelefono.setText("123456");
+            cbxTipoTelefono.setSelection(3);
+            txtEmail.setText("lvelez@gmail.com");
+            cbxTipoEmail.setSelection(2);
+            txtDireccion.setText("Maipu 1111");
+            txtNacimiento.updateDate(1986, 9, 2);
+        }
+        catch(Exception e){
+            throw e;
+        }
+
     }
 
     private void bindForm(){
@@ -53,10 +59,11 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         cbxTipoEmail = (Spinner) findViewById(R.id.cbxTipoEmails);
         txtNacimiento = (DatePicker) findViewById(R.id.txtNacimiento);
     }
-    private Contacto bindData(){
+    private Contacto bindData() throws IOException, ClassNotFoundException {
         try {
             Contacto reg = new Contacto();
-            reg.setId((long) 2);
+            ContactoHelper helper = new ContactoHelper(this);
+            reg.setId(helper.Autoincrement());
             reg.setNombre(txtNombre.getText().toString());
             reg.setApellido(txtApellido.getText().toString());
             reg.setTelefono(txtTelefono.getText().toString());
@@ -78,7 +85,8 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
 
     public void buttonGuardar_Click(View view){
         try {
-            if (ContactoHelper.save(bindData(), this)) {
+            ContactoHelper helper = new ContactoHelper(this);
+            if (helper.save(bindData())) {
                 Toast.makeText(this, "Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
                 finish();
             }
