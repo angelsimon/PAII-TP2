@@ -71,7 +71,6 @@ public class ListarContactosActivity extends AppCompatActivity {
         }
 
     }
-
     private ArrayList<Contacto> getContactos() throws Exception {
         ContactoHelper helper = new ContactoHelper(this);
         ArrayList<Contacto> lista = new ArrayList<Contacto>();
@@ -81,5 +80,8 @@ public class ListarContactosActivity extends AppCompatActivity {
         } catch (Exception e) {
             throw e;
         }
+    }
+    public void btnVolver_Click(View view){
+        finish();
     }
 }

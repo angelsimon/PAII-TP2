@@ -2,6 +2,7 @@ package com.example.tp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -66,21 +67,66 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
     public void buttonGuardar_Click(View view){
         try {
             ContactoHelper helper = new ContactoHelper(this);
-            if (helper.save(bindData())) {
-                Toast.makeText(this, "Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
-                finish();
+
+            if (Validar()) {
+                Intent i = new Intent(this, AgregarContactoDosActivity.class);
+                i.putExtra("CONTACTO", bindData());
+                startActivity(i);
             }
-            else{
-                Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
+                /*if (helper.save(bindData())) {
+                    Toast.makeText(this, "Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else{
+                    Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
+                }*/
             }
+        catch (IOException ex) {
+            //ex.printStackTrace();
+        }
+        catch (ClassNotFoundException ex) {
+            //ex.printStackTrace();
         }
         catch (Exception e){
-            Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede continuar", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
-        private boolean Validar(){
-            //que no haya números en Nombre y Apellido
-            return true;
+        private boolean Validar() throws IOException, ClassNotFoundException {
+
+            try {
+                Contacto reg = bindData();
+                String nombre_pattern = "[a-zA-ZáéíóúÁÉÍÓÚ [']]+$";
+                String telefono_pattern = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,8}$";
+                String email_pattern_RFC = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+                String mensaje = "";
+                boolean correcto = true;
+                if (!reg.getNombre().trim().matches(nombre_pattern)){
+                    mensaje = "El apellido no es correcto";
+                    correcto = false;
+                }
+                else if (!reg.getApellido().trim().matches(nombre_pattern)){
+                    mensaje = "El nombre no es correcto";
+                    correcto = false;
+                }
+                else if(!reg.getEmail().trim().matches(email_pattern_RFC)){
+                    mensaje = "El mail no es correcto";
+                    correcto = false;
+                }
+                else if(!reg.getTelefono().trim().matches(telefono_pattern)){
+                    mensaje = "El teléfono no es correcto";
+                    correcto = false;
+                }
+                if (!correcto){
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
+            }
+            catch(Exception e){
+                return false;
+            }
+
         }
 }
