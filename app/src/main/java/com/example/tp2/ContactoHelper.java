@@ -100,13 +100,11 @@ public class ContactoHelper {
         try{
 
             if (file_exists(Globals.FILE_CONTACTOS, ctx.fileList())){
-                Toast.makeText(ctx, "Existe archivo", Toast.LENGTH_SHORT).show();
                 AppendableObjectOutputStream oout = new AppendableObjectOutputStream(ctx.openFileOutput(Globals.FILE_CONTACTOS, ctx.MODE_APPEND));
                 oout.writeObject(reg);
                 oout.close();
             }
             else{
-                Toast.makeText(ctx, "No existe archivo", Toast.LENGTH_SHORT).show();
                 ObjectOutputStream oout = new ObjectOutputStream(ctx.openFileOutput(Globals.FILE_CONTACTOS, ctx.MODE_PRIVATE));
                 oout.writeObject(reg);
                 oout.close();
