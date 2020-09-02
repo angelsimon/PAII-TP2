@@ -159,7 +159,7 @@
                 android:calendarViewShown="false" />
 
             <Button
-                android:id="@+id/btnVolver"
+                android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="btnVolver_Click"
