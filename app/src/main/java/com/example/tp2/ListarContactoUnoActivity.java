@@ -2,7 +2,9 @@ package com.example.tp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -65,9 +67,11 @@ public class ListarContactoUnoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_contacto_uno);
         try {
+            Intent i = this.getIntent();
+            Long ID = i.getLongExtra("CONTACTO_ID", 0);
             bindForm();
             ContactoHelper helper = new ContactoHelper(this);
-            bindData(helper.getByID((long) 3)); // TODO: Recibir el ID del Activity VerTodos
+            bindData(helper.getByID(ID));
         } catch (ParseException e) {
 
         }
@@ -75,5 +79,9 @@ public class ListarContactoUnoActivity extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    public void btnVolver_Click(View view){
+        finish();
     }
 }

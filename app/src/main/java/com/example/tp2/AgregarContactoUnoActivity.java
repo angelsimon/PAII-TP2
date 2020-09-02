@@ -25,29 +25,10 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_contacto_uno);
         // Fecha de nacimiento menor a la actual
         bindForm();
-        dummyData();
         Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0); // same for minutes and seconds
+        today.set(Calendar.HOUR_OF_DAY, 0);
         txtNacimiento.setMaxDate(today.getTimeInMillis());
-
     }
-    private void dummyData(){
-        try {
-            txtNombre.setText("Laura");
-            txtApellido.setText("Velez");
-            txtTelefono.setText("123456");
-            cbxTipoTelefono.setSelection(3);
-            txtEmail.setText("lvelez@gmail.com");
-            cbxTipoEmail.setSelection(2);
-            txtDireccion.setText("Maipu 1111");
-            txtNacimiento.updateDate(1986, 9, 2);
-        }
-        catch(Exception e){
-            throw e;
-        }
-
-    }
-
     private void bindForm(){
         /* Bind de los controles */
         txtNombre = (EditText) findViewById(R.id.txtNombre);
@@ -74,7 +55,6 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
             Date d = new Date(txtNacimiento.getYear()-1900, txtNacimiento.getMonth(), txtNacimiento.getDayOfMonth());
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             reg.setFechanac(df.format(d));
-            String contactostring = reg.toString();
             return reg;
         }
         catch (Exception e){
@@ -98,4 +78,9 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
             Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
         }
     }
+
+        private boolean Validar(){
+            //que no haya números en Nombre y Apellido
+            return true;
+        }
 }

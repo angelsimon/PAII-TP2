@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class ContactoHelper {
     Context ctx;
@@ -42,6 +43,20 @@ public class ContactoHelper {
         }
         catch (IOException e){
             throw e;
+        }
+    }
+
+    public ArrayList<Contacto> getAll() throws  Exception{
+        ArrayList<Contacto> lista = new ArrayList<Contacto>();
+        long id = 1;
+        try{
+            while(true) {
+                lista.add(Leer(id));
+                id++;
+            }
+        }
+        catch(Exception e){
+            return lista;
         }
     }
 
