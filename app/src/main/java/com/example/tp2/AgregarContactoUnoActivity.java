@@ -29,6 +29,7 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         txtNacimiento.setMaxDate(today.getTimeInMillis());
+        dummyData();
     }
     private void bindForm(){
         /* Bind de los controles */
@@ -63,23 +64,22 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
             throw e;
         }
     }
+    private void dummyData(){
+        txtNombre.setText("Vaquita");
+        txtApellido.setText("Michi");
+        txtTelefono.setText("0111553777890");
+        txtEmail.setText("vaquita@gmail.com");
+        txtDireccion.setText("Libertador esq Maipu");
+    }
 
     public void buttonGuardar_Click(View view){
         try {
             ContactoHelper helper = new ContactoHelper(this);
-
-            if (Validar()) {
-                Intent i = new Intent(this, AgregarContactoDosActivity.class);
-                i.putExtra("CONTACTO", bindData());
-                startActivity(i);
-            }
-                /*if (helper.save(bindData())) {
-                    Toast.makeText(this, "Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
-                    finish();
+                if (Validar()) {
+                    Intent i = new Intent(this, AgregarContactoDosActivity.class);
+                    i.putExtra("CONTACTO", bindData());
+                    startActivity(i);
                 }
-                else{
-                    Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
-                }*/
             }
         catch (IOException ex) {
             //ex.printStackTrace();
@@ -88,7 +88,7 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
             //ex.printStackTrace();
         }
         catch (Exception e){
-            Toast.makeText(this, "No se puede continuar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede continuar con la carga del contacto", Toast.LENGTH_LONG).show();
             finish();
         }
     }

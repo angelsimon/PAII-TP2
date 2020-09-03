@@ -20,7 +20,16 @@ public class Contacto implements Serializable {
     private Boolean recibeInfo;
 
     public Contacto(){
-
+        this.nombre = "";
+        this.apellido = "";
+        this.telefono = "";
+        this.tipoTel = "";
+        this.email = "";
+        this.tipoEmail = "";
+        this.direccion = "";
+        this.nivelEstudio = "";
+        this.intereses = "";
+        this.recibeInfo = false;
     }
 
     public Contacto(String nombre, String apellido, String telefono, String tipoTel, String email, String tipoEmail, String direccion, String fechanac, String nivelEstudio, String intereses, Boolean recibeInfo)
@@ -147,9 +156,9 @@ public class Contacto implements Serializable {
                 ", tipoEmail='" + tipoEmail + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", fechanac='" + fechanac + '\'' +
-                /*", nivelEstudio='" + nivelEstudio + '\'' +
+                ", nivelEstudio='" + nivelEstudio + '\'' +
                 ", intereses='" + intereses + '\'' +
-                ", recibeInfo=" + recibeInfo.toString() +*/
+                ", recibeInfo=" + recibeInfo.toString() +
                 '}';
     }
 
