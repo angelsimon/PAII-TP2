@@ -2,6 +2,7 @@ package com.example.tp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,13 +81,15 @@ public class AgregarContactoDosActivity extends AppCompatActivity {
     public void btnGuardar_Click(View view){
         try {
             ContactoHelper helper = new ContactoHelper(this);
+            Intent i = new Intent();
             if (helper.save(bindData())) {
-                Toast.makeText(this, "Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
-                finish();
+                i.putExtra("resultado", 1);
             }
             else{
-                Toast.makeText(this, "No se pudo guardar el contacto", Toast.LENGTH_SHORT).show();
+                i.putExtra("resultado", 0);
             }
+            setResult(Activity.RESULT_OK, i);
+            finish();
         }
         catch(Exception e){
 

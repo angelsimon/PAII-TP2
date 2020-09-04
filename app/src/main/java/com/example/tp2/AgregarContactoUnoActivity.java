@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,10 +14,13 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class AgregarContactoUnoActivity extends AppCompatActivity {
+    private static final int RESULT = 0;
+
     private EditText txtNombre, txtApellido, txtTelefono, txtEmail, txtDireccion;
     private Spinner cbxTipoTelefono, cbxTipoEmail;
     private DatePicker txtNacimiento;
@@ -26,10 +30,33 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_contacto_uno);
         // Fecha de nacimiento menor a la actual
         bindForm();
+        setSpinnerTelefono();
+        setSpinnerMail();
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         txtNacimiento.setMaxDate(today.getTimeInMillis());
         dummyData();
+    }
+
+    private void setSpinnerTelefono(){
+        ArrayList<String> opciones = new ArrayList<String>();
+        opciones.add("Sin etiqueta");
+        opciones.add("Casa");
+        opciones.add("Trabajo");
+        opciones.add("Móvil");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cbxTipoTelefono.setAdapter(adapter);
+    }
+    private void setSpinnerMail(){
+        ArrayList<String> opciones = new ArrayList<String>();
+        opciones.add("Sin etiqueta");
+        opciones.add("Personal");
+        opciones.add("Trabajo");
+        opciones.add("Otro");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cbxTipoEmail.setAdapter(adapter);
     }
     private void bindForm(){
         /* Bind de los controles */
@@ -71,6 +98,21 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
         txtEmail.setText("vaquita@gmail.com");
         txtDireccion.setText("Libertador esq Maipu");
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == this.RESULT) {
+            if (resultCode == RESULT_OK) {
+                int res = data.getIntExtra("resultado", 0);
+                if (res == 1) {
+                    Toast.makeText(this, "Contacto guardado correctamente.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "No se pudo guardar el contacto.", Toast.LENGTH_SHORT).show();
+                }
+                finish();
+            }
+        }
+    }
 
     public void buttonGuardar_Click(View view){
         try {
@@ -78,7 +120,7 @@ public class AgregarContactoUnoActivity extends AppCompatActivity {
                 if (Validar()) {
                     Intent i = new Intent(this, AgregarContactoDosActivity.class);
                     i.putExtra("CONTACTO", bindData());
-                    startActivity(i);
+                    startActivityForResult(i, this.RESULT);
                 }
             }
         catch (IOException ex) {
